@@ -1,93 +1,95 @@
+
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
-        public class EmployeeManagement{
+public class EmployeeManagement {
 
-            public static int generateUniqueId(ArrayList<Employee> employees, Random rand) {
-                    int id;
-                    do {
-                    id = 10000 + rand.nextInt(90000);
-                    } while (idExists(employees, id));
-                    return id;
-                }
+    public static int generateUniqueId(ArrayList<Employee> employees, Random rand) {
+        int id;
+        do {
+            id = 10000 + rand.nextInt(90000);
+        } while (idExists(employees, id));
+        return id;
+    }
 
-                public static boolean idExists(ArrayList<Employee> employees, int id) {
+    public static boolean idExists(ArrayList<Employee> employees, int id) {
 
-                for (Employee emp : employees) {
-                if (emp.getId() == id) {
+        for (Employee emp : employees) {
+            if (emp.getId() == id) {
                 return true;
-               }
             }
+        }
 
-             return false;
-            }
-            
-            public static void main(String[] args){
+        return false;
+    }
 
-                Scanner sc = new Scanner(System.in);
-                Random rand = new Random();
-                ArrayList <Employee> employees = new ArrayList<>();
+    public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+        ArrayList<Employee> employees = new ArrayList<>();
 
-                Developer d = new Developer("David", 12330, 5000.0, "CSE", "Java");
-                Manager m = new Manager("Beau-G", 44779, 7499.99, "IT Security Department", 58);
-                Intern i = new Intern("Jacques", 85500, 1200, "CSE", 4);
-                Tester t = new Tester("Alice", 27843, 3700, "Computer Science", "Selenium");
+        Developer d = new Developer("David", 12330, 5000.0, "CSE", "Java");
+        Manager m = new Manager("Beau-G", 44779, 7499.99, "IT Security Department", 58);
+        Intern i = new Intern("Jacques", 85500, 1200, "CSE", 4);
+        Tester t = new Tester("Alice", 27843, 3700, "Computer Science", "Selenium");
 
-                employees.add(d);
-                employees.add(m);
-                employees.add(i);
-                employees.add(t);
+        employees.add(d);
+        employees.add(m);
+        employees.add(i);
+        employees.add(t);
 
-                boolean running = true;
+        boolean running = true;
 
-                while(running){
+        while (running) {
 
-                    System.out.println("\n======= EMPLOYEE MANAGEMENT SYSTEM =======\n");
-                    System.out.println("1. Display all employees");
-                    System.out.println("2. Search employee");
-                    System.out.println("3. Add employee");
-                    System.out.println("4. Update employee");
-                    System.out.println("5. Exit");
-                    System.out.print("Enter your choice: ");
-                    int choice = sc.nextInt();
+            System.out.println("\n======= EMPLOYEE MANAGEMENT SYSTEM =======\n");
+            System.out.println("1. Display all employees");
+            System.out.println("2. Search employee");
+            System.out.println("3. Add employee");
+            System.out.println("4. Update employee");
+            System.out.println("5. Remove employee");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
 
-                switch(choice){
-                    case 1:
-                        System.out.println("\n======= EMPLOYEE DETAILS =======\n");
-                        for(Employee emp : employees){
+            switch (choice) {
+                case 1:
+                    System.out.println("\n======= EMPLOYEE DETAILS =======\n");
+                    for (Employee emp : employees) {
                         emp.displayInfo();
                         emp.work();
                         System.out.println("Bonus " + emp.calculateBonus());
                         System.out.println();
-                       }
-                       break;
-
-                       case 2:
-                    
-                      System.out.print("Enter the employee ID: ");
-                      int searchId = sc.nextInt();
-                      boolean found = false;
-
-                      for(Employee emp : employees){
-                      if (searchId == emp.getId()){
-                        System.out.println("\nEmployee found");
-                        emp.displayInfo();
-                        found = true;
-                        break;
                     }
-                }
+                    break;
 
-                   if (!found) {
-                   System.out.println("Employee not found!");
-                }
-                break;
+                case 2:
+                    System.out.println("\n======== SEARCH EMPLOYEE ========\n");
+                    System.out.print("Enter the employee ID: ");
+                    int searchId = sc.nextInt();
+                    boolean found = false;
+
+                    for (Employee emp : employees) {
+                        if (searchId == emp.getId()) {
+                            System.out.println("\nEmployee found\n");
+                            emp.displayInfo();
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("\nEmployee not found!");
+                    }
+                    break;
 
                 case 3:
                     System.out.println("==== ADDING AN EMPLOYEE ====\n");
-                    System.out.println("    1. Developer\n2. Manager\n3. Intern\n4. Tester");
-                    System.out.println("Type of employee: ");
+                    System.out.println("    1. Developer\n    2. Manager\n    3. Intern\n    4. Tester");
+                    System.out.print("Type of employee: ");
                     int employeeType = sc.nextInt();
                     sc.nextLine();
                     System.out.print("New employee name: ");
@@ -100,7 +102,7 @@ import java.util.Random;
                     System.out.print("New employee department: ");
                     String newEmployeeDepartment = sc.nextLine();
 
-                    switch(employeeType){
+                    switch (employeeType) {
                         case 1:
                             System.out.print("Preferred Programming Language: ");
                             String programmingLanguage = sc.nextLine();
@@ -109,11 +111,11 @@ import java.util.Random;
                             System.out.println("New Developer successfully registered...");
                             break;
 
-                         case 2:
+                        case 2:
                             System.out.print("Team size: ");
                             int teamSize = sc.nextInt();
                             sc.nextLine();
-                            Manager newM = new Manager(newEmployeeName, id, newEmployeeSalary, newEmployeeDepartment, teamSize); 
+                            Manager newM = new Manager(newEmployeeName, id, newEmployeeSalary, newEmployeeDepartment, teamSize);
                             employees.add(newM);
                             System.out.println("New Manager successfully registered...");
                             break;
@@ -127,7 +129,7 @@ import java.util.Random;
                             System.out.println("New Intern successfully registered...");
                             break;
 
-                         case 4:
+                        case 4:
                             System.out.print("Testing tool: ");
                             String testingTool = sc.nextLine();
                             Tester newT = new Tester(newEmployeeName, id, newEmployeeSalary, newEmployeeDepartment, testingTool);
@@ -143,8 +145,8 @@ import java.util.Random;
                     sc.nextLine();
 
                     boolean updateId_found = false;
-                    for(Employee emp : employees){
-                        if (emp.getId() == updateId){
+                    for (Employee emp : employees) {
+                        if (emp.getId() == updateId) {
                             updateId_found = true;
 
                             System.out.println("\n      Employee found");
@@ -161,7 +163,7 @@ import java.util.Random;
                             sc.nextLine();
                             String oldName = emp.getName();
 
-                            switch(updateOption){
+                            switch (updateOption) {
                                 case 1:
                                     System.out.print("Enter the new name: ");
                                     String newName = sc.nextLine();
@@ -187,9 +189,9 @@ import java.util.Random;
 
                                 case 4:
                                     System.out.println("Cancelling ...");
-                                    try{
+                                    try {
                                         Thread.sleep(2000);
-                                    }catch(InterruptedException e){
+                                    } catch (InterruptedException e) {
 
                                     }
                                     System.out.println("Successfully cancelled !");
@@ -201,23 +203,65 @@ import java.util.Random;
                             break;
                         }
                     }
-                    if (!updateId_found){
+                    if (!updateId_found) {
                         System.out.println("Employee not found !");
                     }
                     break;
-
                 case 5:
+                    System.out.println("\n===== REMOVE EMPLOYEE =====\n");
+                    System.out.print("Enter ID of employee to remove: ");
+                    int idToRemove;
+
+                    while (true) {
+                        try {
+                            idToRemove = sc.nextInt();
+                            sc.nextLine();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.print("Invalid input\n  Please enter a valid number: ");
+                            sc.nextLine();
+                        }
+                    }
+                    boolean idToRemove_found = false;
+
+                    for (int j = 0; j < employees.size(); j++) {
+                        if (employees.get(j).getId() == idToRemove) {
+                            idToRemove_found = true;
+                            System.out.println("\nEmployee found, here is His/Her details: \n");
+                            employees.get(j).displayInfo();
+                            while (true) {
+                                System.out.print("Are you sure you want to remove this employee ? (yes/y/1 OR no/n/0): ");
+                                String confirmation = sc.nextLine();
+                                confirmation = confirmation.trim().toLowerCase();
+                                if (confirmation.equals("yes") || confirmation.equals("y") || confirmation.equals("1")) {
+                                    employees.remove(j);
+                                    System.out.println("Employee with the ID " + idToRemove + " is successfully removed from the system.");
+                                    break;
+                                } else if (confirmation.equals("no") || confirmation.equals("n") || confirmation.equals("0")) {
+                                    System.out.println("Employee Removal Cancelled !");
+                                    break;
+                                } else {
+                                    System.out.println("Please enter a valid decision (Yes or No)");
+                                }
+                            }
+                        }
+                    }
+                    if (!idToRemove_found) {
+                        System.out.println("Employee not found");
+                    }
+                    break;
+
+                case 6:
                     System.out.println("EXITING ....");
-                    try{
+                    try {
                         Thread.sleep(2000);
-                    }catch(InterruptedException e){
+                    } catch (InterruptedException e) {
 
                     }
                     running = false;
                     break;
-                }      
-                }
-
-    
             }
         }
+
+    }
+}
