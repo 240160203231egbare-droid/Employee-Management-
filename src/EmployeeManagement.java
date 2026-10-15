@@ -113,20 +113,37 @@ public class EmployeeManagement {
                     System.out.println("==== ADDING AN EMPLOYEE ====\n");
                     System.out.println("    1. Developer\n    2. Manager\n    3. Intern\n    4. Tester");
                     System.out.print("Type of employee: ");
-                    int employeeType = getValidInt(sc);
+                    int employeeType;
+                    while (true) {
+                        employeeType = getValidInt(sc);
+                        if (employeeType < 1 || employeeType > 4) {
+                            System.out.println("Invalid input ! \n  Employee type input must lie between 1 and 4");
+                            continue;
+                        }
+                        break;
+                    }
 
                     System.out.print("New employee name: ");
                     String newEmployeeName = sc.nextLine();
 
                     int id = generateUniqueId(employees, rand);
-                
+
                     System.out.println("Generated employee ID: " + id);
                     System.out.print("New employee salary: ");
 
-                    double newEmployeeSalary = getValidDouble(sc);
+                    double newEmployeeSalary;
+                    while (true) {
+                        newEmployeeSalary = getValidDouble(sc);
+
+                        if (newEmployeeSalary <= 0) {
+                            System.out.println("Invalid salary input !");
+                            continue;
+                        }
+                        break;
+                    }
                     int teamSize;
                     int duration;
-                    
+
                     System.out.print("New employee department: ");
                     String newEmployeeDepartment = sc.nextLine();
 
@@ -142,7 +159,15 @@ public class EmployeeManagement {
 
                         case 2:
                             System.out.print("Team size: ");
-                            teamSize = getValidInt(sc);
+                            while (true) {
+                                teamSize = getValidInt(sc);
+
+                                if (teamSize < 0) {
+                                    System.out.println("Invalid team size input !");
+                                    continue;
+                                }
+                                break;
+                            }
 
                             Manager newM = new Manager(newEmployeeName, id, newEmployeeSalary, newEmployeeDepartment,
                                     teamSize);
@@ -152,7 +177,14 @@ public class EmployeeManagement {
 
                         case 3:
                             System.out.print("Duration of internship: ");
-                            duration = getValidInt(sc);
+                            while (true) {
+                                duration = getValidInt(sc);
+                                if (duration <= 0) {
+                                    System.out.println("Invalid duration input !");
+                                    continue;
+                                }
+                                break;
+                            }
 
                             Intern newI = new Intern(newEmployeeName, id, newEmployeeSalary, newEmployeeDepartment,
                                     duration);
@@ -190,8 +222,18 @@ public class EmployeeManagement {
                             System.out.println("4. Cancel");
 
                             System.out.print("Enter your option: ");
-                            int updateOption = sc.nextInt();
-                            sc.nextLine();
+                            int updateOption;
+
+                            while (true) {
+                                updateOption = getValidInt(sc);
+
+                                if (updateOption < 1 || updateOption > 4) {
+                                    System.out.println("Invalid option! Choose between 1 and 4.");
+                                    continue;
+                                }
+
+                                break;
+                            }
                             String oldName = emp.getName();
 
                             switch (updateOption) {
@@ -206,7 +248,16 @@ public class EmployeeManagement {
                                 case 2:
                                     double oldSalary = emp.getSalary();
                                     System.out.print("Enter new salary: ");
-                                    double newSalary = getValidDouble(sc);
+                                    double newSalary;
+                                    while (true) {
+                                        newSalary = getValidDouble(sc);
+
+                                        if (newSalary <= 0) {
+                                            System.out.println("Invalid salary input !");
+                                            continue;
+                                        }
+                                        break;
+                                    }
                                     emp.setSalary(newSalary);
                                     System.out.println(oldName + "'s salary successfully changed from " + oldSalary
                                             + " to " + newSalary);
