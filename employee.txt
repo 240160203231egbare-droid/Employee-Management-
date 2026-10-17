@@ -1,0 +1,4 @@
+Developer;David TOJU;12330;5000.0;CSE;Java
+Manager;Beaugard EGBARE;44779;7499.99;Cybersecurity;58
+Tester;Alice ARENI;27843;3700.0;AI-ML;Selenium
+Intern;Jacques LONGA;85500;1200.0;CSE;4

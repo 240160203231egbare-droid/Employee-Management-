@@ -29,7 +29,7 @@ public class EmployeeManagement {
                 sc.nextLine();
                 return value;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input ! Please enter a valid value.");
+                System.out.print("Invalid input ! Please enter a valid value: ");
                 sc.nextLine();
             }
         }
@@ -42,7 +42,7 @@ public class EmployeeManagement {
                 sc.nextLine();
                 return value;
             } catch (InputMismatchException e) {
-                System.out.println("Inavlid input ! Please enter a valid value.");
+                System.out.print("Inavlid input ! Please enter a valid value: ");
                 sc.nextLine();
             }
         }
@@ -55,9 +55,9 @@ public class EmployeeManagement {
         ArrayList<Employee> employees = new ArrayList<>();
 
         Developer d = new Developer("David TOJU", 12330, 5000.0, "CSE", "Java");
-        Manager m = new Manager("Beaugard E.", 44779, 7499.99, "IT Security Department", 58);
+        Manager m = new Manager("Beaugard EGBARE", 44779, 7499.99, "IT Security Department", 58);
         Intern i = new Intern("Jacques LONGA", 85500, 1200, "CSE", 4);
-        Tester t = new Tester("Alice KEBE", 27843, 3700, "Computer Science", "Selenium");
+        Tester t = new Tester("Alice ARENI", 27843, 3700, "Computer Science", "Selenium");
 
         employees.add(d);
         employees.add(m);
@@ -68,15 +68,25 @@ public class EmployeeManagement {
 
         while (running) {
 
-            System.out.println("\n======= EMPLOYEE MANAGEMENT SYSTEM =======\n");
-            System.out.println("1. Display all employees");
-            System.out.println("2. Search employee");
-            System.out.println("3. Add employee");
-            System.out.println("4. Update employee");
-            System.out.println("5. Remove employee");
-            System.out.println("6. Exit");
-            System.out.print("Enter your choice: ");
-            int choice = getValidInt(sc);
+            int choice;
+
+            while (true) {
+                System.out.println("\n======= EMPLOYEE MANAGEMENT SYSTEM =======\n");
+                System.out.println("1. Display all employees");
+                System.out.println("2. Search employee");
+                System.out.println("3. Add employee");
+                System.out.println("4. Update employee");
+                System.out.println("5. Remove employee");
+                System.out.println("6. Exit");
+                System.out.print("Enter your choice: ");
+
+                choice = getValidInt(sc);
+                if (choice < 1 || choice > 6) {
+                    System.out.print("\n Invalid choice !\n   Please enter a value between 1 and 6: ");
+                    continue;
+                }
+                break;
+            }
 
             switch (choice) {
                 case 1:
@@ -117,7 +127,7 @@ public class EmployeeManagement {
                     while (true) {
                         employeeType = getValidInt(sc);
                         if (employeeType < 1 || employeeType > 4) {
-                            System.out.println("Invalid input ! \n  Employee type input must lie between 1 and 4");
+                            System.out.print("Invalid input ! \n  Employee type input must lie between 1 and 4: ");
                             continue;
                         }
                         break;
@@ -163,7 +173,7 @@ public class EmployeeManagement {
                                 teamSize = getValidInt(sc);
 
                                 if (teamSize < 0) {
-                                    System.out.println("Invalid team size input !");
+                                    System.out.print("Invalid team size input ! Try again: ");
                                     continue;
                                 }
                                 break;
@@ -180,7 +190,7 @@ public class EmployeeManagement {
                             while (true) {
                                 duration = getValidInt(sc);
                                 if (duration <= 0) {
-                                    System.out.println("Invalid duration input !");
+                                    System.out.print("Invalid duration input ! Try again: ");
                                     continue;
                                 }
                                 break;
@@ -212,7 +222,7 @@ public class EmployeeManagement {
                         if (emp.getId() == updateId) {
                             updateId_found = true;
 
-                            System.out.println("\n      Employee found");
+                            System.out.println("\n   Employee found");
                             emp.displayInfo();
 
                             System.out.println("\nWhat do you want to update ?");
@@ -228,7 +238,7 @@ public class EmployeeManagement {
                                 updateOption = getValidInt(sc);
 
                                 if (updateOption < 1 || updateOption > 4) {
-                                    System.out.println("Invalid option! Choose between 1 and 4.");
+                                    System.out.print("Invalid option! Choose between 1 and 4: ");
                                     continue;
                                 }
 
@@ -241,8 +251,7 @@ public class EmployeeManagement {
                                     System.out.print("Enter the new name: ");
                                     String newName = sc.nextLine();
                                     emp.setName(newName);
-                                    System.out.println(
-                                            "Employee name successfully changed from " + oldName + " to " + newName);
+                                    System.out.println("Employee name successfully changed from " + oldName + " to " + newName);
                                     break;
 
                                 case 2:
@@ -277,13 +286,10 @@ public class EmployeeManagement {
                                     try {
                                         Thread.sleep(2000);
                                     } catch (InterruptedException e) {
-
+                                        System.out.println("Operation interrupted !");
                                     }
                                     System.out.println("Successfully cancelled !");
                                     break;
-
-                                default:
-                                    System.out.println("Invalid option");
                             }
                             break;
                         }
@@ -307,18 +313,14 @@ public class EmployeeManagement {
                             System.out.println("\nEmployee found, here are details: \n");
                             employees.get(j).displayInfo();
                             while (true) {
-                                System.out
-                                        .print("Are you sure you want to remove this employee ? (yes/y/1 OR no/n/0): ");
+                                System.out.print("Are you sure you want to remove this employee ? (yes/y/1 OR no/n/0): ");
                                 String confirmation = sc.nextLine();
                                 confirmation = confirmation.trim().toLowerCase();
-                                if (confirmation.equals("yes") || confirmation.equals("y")
-                                        || confirmation.equals("1")) {
+                                if (confirmation.equals("yes") || confirmation.equals("y") || confirmation.equals("1")) {
                                     employees.remove(j);
-                                    System.out.println("Employee with the ID " + idToRemove
-                                            + " is successfully removed from the system.");
+                                    System.out.println("Employee with the ID " + idToRemove + " is successfully removed from the system.");
                                     break;
-                                } else if (confirmation.equals("no") || confirmation.equals("n")
-                                        || confirmation.equals("0")) {
+                                } else if (confirmation.equals("no") || confirmation.equals("n") || confirmation.equals("0")) {
                                     System.out.println("Employee Removal Cancelled !");
                                     break;
                                 } else {
